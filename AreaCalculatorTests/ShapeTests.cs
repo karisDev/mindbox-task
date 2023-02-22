@@ -49,5 +49,58 @@ namespace AreaCalculatorTests
 
       Assert.IsFalse(result);
     }
+
+    [TestMethod]
+    public void Test_IsRightTriangle_InvalidOperationException_ShapeIsNotTriangle()
+    {
+      double[] dimensions = new double[] { 1 };
+
+      var shape = new Shape(dimensions);
+
+      Assert.ThrowsException<InvalidOperationException>(() => shape.IsRightTriangle());
+    }
+
+    [TestMethod]
+    public void Test_ArgumentException_DimensionsIsEmpty()
+    {
+      double[] dimensions = Array.Empty<double>();
+
+      Assert.ThrowsException<ArgumentException>(() => new Shape(dimensions));
+    }
+
+    [TestMethod]
+    public void Test_ArgumentException_DimensionsLengthIsNotSupported()
+    {
+      double[] dimensions = new double[2];
+      
+      Assert.ThrowsException<ArgumentException>(() => new Shape(dimensions));
+    }
+
+    [TestMethod]
+    public void Test_ArgumentOutOfRangeException_RadiusIsZero()
+    {
+      double[] dimensions = new double[] { 0 };
+
+      
+      Assert.ThrowsException<ArgumentOutOfRangeException>(() => new Shape(dimensions));
+    }
+
+    [TestMethod]
+    public void Test_ArgumentOutOfRangeException_RadiusIsNegative()
+    {
+      double[] dimensions = new double[] { -1 };
+
+      
+      Assert.ThrowsException<ArgumentOutOfRangeException>(() => new Shape(dimensions));
+    }
+
+    [TestMethod]
+    public void Test_ArgumentException_TriangleSidesDoNotFormValidTriangle()
+    {
+      double[] dimensions = new double[] { 1, 1, 3 };
+
+      
+      Assert.ThrowsException<ArgumentException>(() => new Shape(dimensions));
+    }
   }
 }
